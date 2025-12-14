@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: electro-cart-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: electro-cart-frontend
+  template:
+    metadata:
+      labels:
+        app: electro-cart-frontend
+    spec:
+      containers:
+        - name: electro-cart-frontend
+          image: vijaydasr/electro-cart-frontend:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: electro-cart-frontend
+spec:
+  selector:
+    app: electro-cart-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

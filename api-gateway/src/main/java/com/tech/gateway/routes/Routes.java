@@ -28,7 +28,7 @@ public class Routes {
     @Bean
     public RouterFunction<ServerResponse> productServiceRoute() {
         return route("product_service")
-                .route(RequestPredicates.path("/api/product/**"), HandlerFunctions.http("http://localhost:8080"))
+                .route(RequestPredicates.path("/api/product/**"), HandlerFunctions.http(productServiceUrl))
                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceCircuitBreaker", URI.create("forward:/fallbackRoute")))
                 .build();
     }
@@ -44,7 +44,7 @@ public class Routes {
     @Bean
     public RouterFunction<ServerResponse> orderServiceRoute() {
         return route("order_service")
-                .route(RequestPredicates.path("/api/order/**"), HandlerFunctions.http("http://localhost:8081"))
+                .route(RequestPredicates.path("/api/order/**"), HandlerFunctions.http(orderServiceUrl))
                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("orderServiceCircuitBreaker", URI.create("forward:/fallbackRoute")))
                 .build();
     }
@@ -60,7 +60,7 @@ public class Routes {
     @Bean
     public RouterFunction<ServerResponse> inventoryServiceRoute() {
         return route("inventory_service")
-                .route(RequestPredicates.path("/api/inventory/**"), HandlerFunctions.http("http://localhost:8082"))
+                .route(RequestPredicates.path("/api/inventory/**"), HandlerFunctions.http(inventoryServiceUrl))
                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("inventoryServiceCircuitBreaker", URI.create("forward:/fallbackRoute")))
                 .build();
     }

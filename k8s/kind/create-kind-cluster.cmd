@@ -1,0 +1,1 @@
+kind create cluster --name electro-cart-microservices --config kind-config.yaml
